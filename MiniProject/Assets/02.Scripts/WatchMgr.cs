@@ -15,12 +15,18 @@ using UnityEngine.UI;
 public class WatchMgr : MonoBehaviour
 {
     public GameObject WatchUI;
+    public Quaternion handPivot;
+    int angle;
     // Start is called before the first frame update
     void Start()
     {
         WatchUI = GetComponentInChildren<Canvas>().gameObject;
         WatchUI.SetActive(false);
-    }
+
+        //시침의 방향 랜덤생성(12개)
+        //HandPivot의 Rotation의 Y값을 1~12까지의 12개 값에 30을 곱해 360도 단위로 만든다.
+        handPivot.SetEulerRotation(0, 0, 0);
+     }
 
     // Update is called once per frame
     void Update()
@@ -32,6 +38,9 @@ public class WatchMgr : MonoBehaviour
     {
         if (coll.CompareTag("RIGHTHAND")){
             WatchUI.SetActive(true);
+            //시침의 방향 조정
+            angle = Random.Range(0, 11); // 0도와 360도는 같으므로 각도를 0부터 11까지만 줌
+            handPivot.SetEulerRotation(0, angle*30, 0);
         }
     }
 }
