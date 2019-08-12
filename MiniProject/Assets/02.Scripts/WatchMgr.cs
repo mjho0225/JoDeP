@@ -18,12 +18,20 @@ public class WatchMgr : MonoBehaviour
     public Transform handPivot;
     int angle;
 
+    int count;
+
+    bool test;
+
     public Slider m_ArrowSlider;
+    float currentTime;
+    float maxSlider = 1;
+
     // Start is called before the first frame update
     void Start()
     {
+        m_ArrowSlider = GetComponent<Slider>();
         WatchUI = GetComponentInChildren<Canvas>().gameObject;
-        //WatchUI.SetActive(false);
+        WatchUI.SetActive(false);
 
         //시침의 방향 랜덤생성(12개)
         //HandPivot의 Rotation의 Y값을 1~12까지의 12개 값에 30을 곱해 360도 단위로 만든다.
@@ -31,23 +39,55 @@ public class WatchMgr : MonoBehaviour
         angle = Random.Range(1, 12); //12 개의 시간 방향 중 랜덤하게 1개
      
         handPivot.localEulerAngles = new Vector3(0, 0, angle * 30);
+
+        currentTime = 0;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        
+        currentTime += Time.deltaTime;
+        if(test)
+        {
+            if (currentTime >= 1)
+            {
+                test = false;
+                m_ArrowSlider.gameObject.SetActive(false);
+                
+            }
+            else
+            m_ArrowSlider.value = currentTime;
+        }
+
     }
     //시계 트리거 엔터 되면 UI 오픈
     private void OnTriggerEnter(Collider coll)
     {
-        if (coll.CompareTag("RIGHTHAND"))
+        if (coll.CompareTag("RIGHTHAND") && count < 1)
         {
+            //카운트를 센다
+            //트리거를 한번만 실행한다.
+            count++;
+
+            Debug.Log("들어와썽!");
             WatchUI.SetActive(true);
-            //시침의 방향 조정
-            /*   angle = Random.Range(0, 11); // 0도와 360도는 같으므로 각도를 0부터 11까지만 줌
-               handPivot.SetEulerRotation(0, angle * 30, 0);*/
+            
+            /*ArrowSlider();
+            currentTime = 0;*/
         }
+    }
+    void ArrowSlider()
+    {
+        //슬라이더의 값은 시간에 따라 증가한다.
+        //시간의 값 = 슬라이더값
+
+       /* currentTime += currentTime * Time.deltaTime;
+        if(currentTime < 1)
+        {
+            m_ArrowSlider.value += currentTime;
+        }*/
+        
+        
     }
 }
