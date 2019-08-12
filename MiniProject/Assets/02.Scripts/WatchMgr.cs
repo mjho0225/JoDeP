@@ -17,6 +17,8 @@ public class WatchMgr : MonoBehaviour
     public GameObject WatchUI;
     public Transform handPivot;
     int angle;
+
+    public Slider m_ArrowSlider;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,7 @@ public class WatchMgr : MonoBehaviour
         
         angle = Random.Range(1, 12); //12 개의 시간 방향 중 랜덤하게 1개
      
-        handPivot.localEulerAngles = new Vector3(0, 0, angle * 30);  
+        handPivot.localEulerAngles = new Vector3(0, 0, angle * 30);
     }
 
     // Update is called once per frame
