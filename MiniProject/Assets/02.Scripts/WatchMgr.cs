@@ -40,7 +40,7 @@ public class WatchMgr : MonoBehaviour
      
         handPivot.localEulerAngles = new Vector3(0, 0, angle * 30);
 
-        currentTime = 0;
+        
         
     }
 
@@ -53,10 +53,12 @@ public class WatchMgr : MonoBehaviour
             if (currentTime >= 1)
             {
                 test = false;
-                m_ArrowSlider.gameObject.SetActive(false);
                 
+
             }
             else
+                m_ArrowSlider.gameObject.SetActive(true);
+            currentTime = 0;
             m_ArrowSlider.value = currentTime;
         }
 
@@ -72,6 +74,8 @@ public class WatchMgr : MonoBehaviour
 
             Debug.Log("들어와썽!");
             WatchUI.SetActive(true);
+            test = true;
+            
             
             /*ArrowSlider();
             currentTime = 0;*/
